@@ -1,0 +1,14 @@
+.reimbursementTable, .reimbursementTable td {
+    border-style: solid;
+    border-collapse: collapse;
+    border-width: 3px;
+    padding: 5px;
+}
+
+.reimbursementTable th {
+    text-align: center;
+}
+
+.reimbursementTable td:nth-child(3) {
+    text-align: right;
+}
