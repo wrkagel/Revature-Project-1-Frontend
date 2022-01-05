@@ -12,3 +12,8 @@
 .reimbursementTable td:nth-child(3) {
     text-align: right;
 }
+
+.reimbursementTable td:nth-child(4) {
+    text-transform: capitalize;
+    font-weight: bold;
+}
