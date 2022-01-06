@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import ReimbursementItem from "../models/reimbursement-item";
+import ReimbursementItem from "../entities/reimbursement-item";
 import { pageState } from "../store";
 
 

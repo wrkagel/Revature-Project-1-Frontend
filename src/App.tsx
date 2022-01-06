@@ -16,7 +16,7 @@ function App() {
     {user.isAuthenticated ? 
       <>      
       <Route path='/employee' element={<EmployeePage />}/>
-      <Route path='/manager' element={<ManagerPage />}/>
+      <Route path='/manager/*' element={<ManagerPage />}/>
       </>
       :
       <>

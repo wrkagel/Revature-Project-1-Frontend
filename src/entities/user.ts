@@ -2,5 +2,6 @@
 export default interface User {
     isAuthenticated:boolean,
     isManager:boolean,
-    id:string
+    id:string,
+    employeeId?:string
 }

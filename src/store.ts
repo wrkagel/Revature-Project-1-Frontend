@@ -1,6 +1,6 @@
 import { configureStore, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import ReimbursementItem, { ReimbursementStatus } from "./models/reimbursement-item";
-import User from "./models/user";
+import ReimbursementItem, { ReimbursementStatus } from "./entities/reimbursement-item";
+import User from "./entities/user";
 
 
 export interface pageState {
@@ -32,6 +32,10 @@ const pageSlice = createSlice({
 
         updateUser (state:pageState, action:PayloadAction<User>) {
             state.user = action.payload;
+        },
+
+        addReimbursementItemToList (state:pageState, action:PayloadAction<ReimbursementItem>) {
+            state.reimbursementList.push(action.payload);
         }
 
     }

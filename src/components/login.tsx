@@ -2,7 +2,7 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useRef } from "react"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import User from "../models/user";
+import User from "../entities/user";
 import { actions } from "../store";
 
 
@@ -15,7 +15,7 @@ export default function Login() {
 
     function validateUser() {
         //Dummy code to be fixed after Backend created
-        const dummyUser:User = {isAuthenticated:true, id:'007', isManager:false}
+        const dummyUser:User = {isAuthenticated:true, id:'007', isManager:true}
         const action = actions.updateUser(dummyUser);
         dispatch(action);
         navigate(dummyUser.isManager ? '/manager' : '/employee');

@@ -4,8 +4,8 @@ export enum ReimbursementStatus {
 }
 
 /** 
- * @property {string} type what the reimbursement falls under, such as gas, lunch, skydiving, etc.
- * @property {string} desc short description of what is to be reimbursed
+ * @property {string} type - what the reimbursement falls under, such as gas, lunch, skydiving, etc.
+ * @property {string} desc - short description of what is to be reimbursed
 */
 export default interface ReimbursementItem {
     id:string,
