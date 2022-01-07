@@ -8,14 +8,14 @@ import ReimbursementForm from "./reimbursement-form";
 export default function ReimbursementTable() {
     
     const reimbursementList = useSelector((state:PageState) => state.reimbursementList);
-    const isManager = useSelector((state:PageState) => state.user.isManager);
+    const {isManager, id} = useSelector((state:PageState) => state.user);
     const reimbursementRows = reimbursementList.map(r => <ReimbursementRow key={r.id} {...r}/> )
 
     return (<>
         <table className="reimbursementTable">
             <thead>
                 <tr><th>Type</th><th>Description</th><th>Amount</th><th>Status</th><th>Date</th><th>id</th>{
-                isManager && (<><th>Employee ID</th><th>Manager Only</th></>)}</tr>
+                (isManager && id !== reimbursementList[0]?.employeeId) && (<><th>Employee ID</th><th>Manager Only</th></>)}</tr>
             </thead>
             <tbody>
                 {reimbursementRows}
