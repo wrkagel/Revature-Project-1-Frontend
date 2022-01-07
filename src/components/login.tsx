@@ -21,7 +21,12 @@ export default function Login() {
             alert('Both username and password must be non-empty.')
             return;
         }
-        const response = await fetch(`http://localhost:5000/login?user=${username}&&pass=${password}`);
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({user:username, pass:password})
+        })
+        //const response = await fetch(`http://localhost:5000/login?user=${username}&&pass=${password}`);
         if(!response) {
             alert('There was an error communicating with the server.');
             return;

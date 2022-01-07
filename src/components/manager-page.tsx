@@ -8,7 +8,6 @@ export default function ManagerPage() {
 
     return (<>
         <h3>You are on the Manager Page</h3>
-        <ManagerNavBar />
         <Routes>
             <Route path={'/statistics'} element={<StatisticsPage />}/>
             <Route path={'/reimbursements'} element={<>

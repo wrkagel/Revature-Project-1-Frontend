@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import EmployeePage from "./components/employee-page";
 import Login from "./components/login";
+import ManagerNavBar from "./components/manager-nav-bar";
 import ManagerPage from "./components/manager-page";
 import { pageState } from "./store";
 
@@ -12,6 +13,7 @@ function App() {
   return (<>
     <h1>Reimbursement System</h1>
     <BrowserRouter>
+    {user.isManager && <ManagerNavBar />}
     <Routes>
     {user.isAuthenticated ? 
       <>      
