@@ -1,14 +1,14 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import ReimbursementItem, { ReimbursementStatus } from "../entities/reimbursement-item";
-import { actions, pageState } from "../store";
+import { actions, PageState } from "../store";
 
 
 export default function ReimbursementForm() {
 
     const dispatch = useDispatch();
 
-    const {id, employeeId} = useSelector((state:pageState) => state.user);
+    const {id, employeeId} = useSelector((state:PageState) => state.user);
 
 
     const typeInput = useRef<HTMLInputElement>(null);

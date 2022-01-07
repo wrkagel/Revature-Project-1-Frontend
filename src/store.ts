@@ -3,7 +3,7 @@ import ReimbursementItem from "./entities/reimbursement-item";
 import User from "./entities/user";
 
 
-export interface pageState {
+export interface PageState {
     user:User,
     reimbursementList:ReimbursementItem[]
 }
@@ -14,19 +14,23 @@ export interface pageState {
 //     reimbursementList:[]
 // };
 
-const initialState:pageState = {user:{id:"", isAuthenticated:false, isManager:false}, reimbursementList:[]};
+const initialState:PageState = {user:{id:"", isAuthenticated:false, isManager:false}, reimbursementList:[]};
 
 const pageSlice = createSlice({
     name:"PageStore",
     initialState,
     reducers: {
 
-        updateUser (state:pageState, action:PayloadAction<User>) {
+        updateUser (state:PageState, action:PayloadAction<User>) {
             state.user = action.payload;
         },
 
-        addReimbursementItemToList (state:pageState, action:PayloadAction<ReimbursementItem>) {
+        addReimbursementItemToList (state:PageState, action:PayloadAction<ReimbursementItem>) {
             state.reimbursementList.push(action.payload);
+        },
+
+        updateReimbursementList (state:PageState, action:PayloadAction<ReimbursementItem[]>) {
+            state.reimbursementList = action.payload;
         }
 
     }

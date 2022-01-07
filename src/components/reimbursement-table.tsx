@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { pageState } from "../store";
+import { PageState } from "../store";
 import ReimbursementRow from "./reimbursement-row";
 import '../style/reimbursement-table.css'
 import ReimbursementForm from "./reimbursement-form";
@@ -7,8 +7,8 @@ import ReimbursementForm from "./reimbursement-form";
 
 export default function ReimbursementTable() {
     
-    const reimbursementList = useSelector((state:pageState) => state.reimbursementList);
-    const isManager = useSelector((state:pageState) => state.user.isManager);
+    const reimbursementList = useSelector((state:PageState) => state.reimbursementList);
+    const isManager = useSelector((state:PageState) => state.user.isManager);
     const reimbursementRows = reimbursementList.map(r => <ReimbursementRow key={r.id} {...r}/> )
 
     return (<>

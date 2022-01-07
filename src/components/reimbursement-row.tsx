@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import ReimbursementItem from "../entities/reimbursement-item";
-import { pageState } from "../store";
+import { PageState } from "../store";
 
 
 export default function ReimbursementRow(props:ReimbursementItem) {
 
-    const isManager = useSelector((state:pageState) => state.user.isManager);
+    const isManager = useSelector((state:PageState) => state.user.isManager);
 
     const {id, employeeId, type, desc, amount, date, status} = props;
     

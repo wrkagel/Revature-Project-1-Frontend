@@ -4,11 +4,11 @@ import EmployeePage from "./components/employee-page";
 import Login from "./components/login";
 import ManagerNavBar from "./components/manager-nav-bar";
 import ManagerPage from "./components/manager-page";
-import { pageState } from "./store";
+import { PageState } from "./store";
 
 function App() {
 
-  const user = useSelector((state:pageState)=>state.user);
+  const user = useSelector((state:PageState)=>state.user);
 
   return (<>
     <h1>Reimbursement System</h1>
