@@ -14,7 +14,7 @@ export default function ReimbursementTable() {
     return (<>
         <table className="reimbursementTable">
             <thead>
-                <tr><th>Type</th><th>Description</th><th>Amount</th><th>Status</th><th>id</th>{
+                <tr><th>Type</th><th>Description</th><th>Amount</th><th>Status</th><th>Date</th><th>id</th>{
                 isManager && (<><th>Employee ID</th><th>Manager Only</th></>)}</tr>
             </thead>
             <tbody>

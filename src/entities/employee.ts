@@ -4,6 +4,5 @@ export default interface Employee {
     fname:string,
     mname?:string,
     lname?:string,
-    username:string,
-    password:string
+    manages?:Employee[]
 }

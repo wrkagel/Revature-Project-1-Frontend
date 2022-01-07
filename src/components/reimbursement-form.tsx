@@ -14,21 +14,24 @@ export default function ReimbursementForm() {
     const typeInput = useRef<HTMLInputElement>(null);
     const descInput = useRef<HTMLInputElement>(null);
     const amountInput = useRef<HTMLInputElement>(null);
+    const dateInput = useRef<HTMLInputElement>(null);
 
     function addReimbursement() {
-        const type = typeInput.current?.value;
-        const desc = descInput.current?.value;
-        const amount = amountInput.current?.valueAsNumber;
-        const {valid, alertMessage } = checkValid(type, desc, amount);
+        const type:string = typeInput.current?.value ?? "";
+        const desc:string = descInput.current?.value ?? "";
+        const amount = amountInput.current?.valueAsNumber ?? NaN;
+        const date = dateInput.current?.valueAsNumber ?? NaN;
+        const {valid, alertMessage } = checkValid(type, desc, amount, date);
         if(!valid) {
             alert(alertMessage);
             return;
         }
 
         const newReimbursement:ReimbursementItem = {
-            type:type ?? "",
-            desc:desc ?? "",
-            amount:amount ?? 0,
+            type:type,
+            desc:desc,
+            amount:parseInt(amount.toPrecision(2), 10),
+            date: date + (new Date()).getTimezoneOffset() * 60000, // Adjust for local timezone
             id:"",
             employeeId: employeeId ?? id,
             status:ReimbursementStatus.pending
@@ -39,7 +42,7 @@ export default function ReimbursementForm() {
         dispatch(action);
     }
 
-    function checkValid(type:any, desc:any, amount:any) {
+    function checkValid(type:string, desc:string, amount:number, date:number) {
         let valid = true;
         let alertMessage = "";
         if(!type) {
@@ -53,6 +56,10 @@ export default function ReimbursementForm() {
         if(!amount) {
             valid = false; 
             alertMessage += "Amount not a valid number.";
+        }
+        if(!date) {
+            valid = false;
+            alertMessage += "Date is not valid. Make sure it is in the format mm/dd/yyyy.";
         }
         return {valid, alertMessage};
     }
@@ -83,6 +90,10 @@ export default function ReimbursementForm() {
             <tr>
                 <td><label htmlFor="amount">Amount</label></td>
                 <td><input id="amount" type="number" step={0.01} min={0.01} defaultValue={10} ref={amountInput}/></td>
+            </tr>
+            <tr>
+                <td><label htmlFor="date">Date</label></td>
+                <td><input type={"date"} id="date" ref={dateInput} /></td>
             </tr>
         </tbody>
     </table>

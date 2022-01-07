@@ -13,6 +13,7 @@ export default interface ReimbursementItem {
     type:string,
     desc:string,
     amount:number,
+    date: number,
     status:ReimbursementStatus
     //file uploads if possible
 }
