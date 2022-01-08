@@ -31,6 +31,10 @@ const pageSlice = createSlice({
 
         updateReimbursementList (state:PageState, action:PayloadAction<ReimbursementItem[]>) {
             state.reimbursementList = action.payload;
+        },
+
+        clearEmployeeId (state:PageState) {
+            state.user = {id:state.user.id, isAuthenticated:state.user.isAuthenticated, isManager:state.user.isManager}
         }
 
     }

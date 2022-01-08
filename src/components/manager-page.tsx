@@ -10,7 +10,7 @@ import StatisticsPage from "./statistics-page";
 
 export default function ManagerPage() {
 
-    const id = useSelector((state:PageState) => state.user.id);
+    const user = useSelector((state:PageState) => state.user);
     const dispatch = useDispatch();
 
     const [employees, setEmployees] = useState<Employee[]>([]);
@@ -18,7 +18,7 @@ export default function ManagerPage() {
     useLayoutEffect(() => {(async () => {        
         const action = actions.updateReimbursementList([]);
         dispatch(action);
-        const response = await fetch(`http://localhost:5000/employees/${id}`);
+        const response = await fetch(`http://localhost:5000/employees/${user.id}`);
         const {manages} = await response.json();
         const response2 = await fetch('http://localhost:5000/employees/managed', {
             method: 'PATCH',
@@ -26,7 +26,15 @@ export default function ManagerPage() {
             body: JSON.stringify(manages)
         })
         const employees:Employee[] = await response2.json();
-        setEmployees(employees)})()}, [id, dispatch]);
+        setEmployees(employees)})()}, [user.id, dispatch]
+    );
+
+    // useEffect(() => {
+    //     return () => {
+    //         const action = actions.updateUser({id:user.id, isManager:user.isManager, isAuthenticated:user.isAuthenticated})
+    //         dispatch(action);
+    //     }
+    // }, [dispatch, user])
 
     async function updateReimbursementList() {
         const id:string = employeeInput.current?.value ?? "";
@@ -45,7 +53,7 @@ export default function ManagerPage() {
                 <label htmlFor="employeeInput">Choose an Employee</label>
                 <select defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
                     <option value="">Please choose an option</option>
-                    {employees.map(e => <option key={e.id} value={e.id}>{e.fname + (e.mname ?? "") + (e.lname ?? "")}</option>)}
+                    {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
                 </select>
                 <ReimbursementTable />
             </>}>

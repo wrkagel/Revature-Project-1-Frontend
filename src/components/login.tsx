@@ -27,12 +27,15 @@ export default function Login() {
             body: JSON.stringify({user:username, pass:password})
         })
         //const response = await fetch(`http://localhost:5000/login?user=${username}&&pass=${password}`);
-        if(!response) {
+        if(!response || !(response.ok)) {
             alert('There was an error communicating with the server.');
             return;
         }
         if(response.status === 404) {
             alert('No matching username and password found.')
+            return;
+        } else if (response.status !== 200) {
+            alert(await response.text());
             return;
         }
         const employee:Employee = await response.json();

@@ -16,7 +16,7 @@ export default function ReimbursementForm() {
     const amountInput = useRef<HTMLInputElement>(null);
     const dateInput = useRef<HTMLInputElement>(null);
 
-    function addReimbursement() {
+    async function addReimbursement() {
         const type:string = typeInput.current?.value ?? "";
         const desc:string = descInput.current?.value ?? "";
         const amount = amountInput.current?.valueAsNumber ?? NaN;
@@ -30,16 +30,26 @@ export default function ReimbursementForm() {
         const newReimbursement:ReimbursementItem = {
             type:type,
             desc:desc,
-            amount:parseInt(amount.toPrecision(2), 10),
+            amount:parseFloat(amount.toFixed(2)),
             date: date + (new Date()).getTimezoneOffset() * 60000, // Adjust for local timezone
             id:"",
             employeeId: employeeId ?? id,
             status:ReimbursementStatus.pending
         };
         alert('Submitted');
-        clearForm();
-        const action = actions.addReimbursementItemToList(newReimbursement);
-        dispatch(action);
+        const response = await fetch('http://localhost:5000/reimbursements', {
+            method: "POST",
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify(newReimbursement)
+        })
+        if(response.status === 200) {
+            const returnedReimbursement:ReimbursementItem = await response.json();
+            clearForm();
+            const action = actions.addReimbursementItemToList(returnedReimbursement);
+            dispatch(action);
+        } else {
+            alert(await response.text());
+        }
     }
 
     function checkValid(type:string, desc:string, amount:number, date:number) {

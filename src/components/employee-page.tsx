@@ -10,15 +10,18 @@ export default function EmployeePage() {
     const id = useSelector((state:PageState) => state.user.id);
     
     const dispatch = useDispatch();
+
     useLayoutEffect(() => {(async () => {
+        const action = actions.clearEmployeeId();
+        dispatch(action);
         const response = await fetch(`http://localhost:5000/reimbursements/${id}`);
-        if(!response || !response.ok) {
+        if(!response || response.status !== 200) {
             alert('Failure retrieving reimbursements from server.');
             return;
         }
         const reimbursements:ReimbursementItem[] = await response.json();
-        const action = actions.updateReimbursementList(reimbursements);
-        dispatch(action);
+        const action2 = actions.updateReimbursementList(reimbursements);
+        dispatch(action2);
     })()}, [id, dispatch]);
 
     return (<>
