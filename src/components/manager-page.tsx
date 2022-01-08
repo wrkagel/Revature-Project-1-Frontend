@@ -49,7 +49,7 @@ export default function ManagerPage() {
                 <label htmlFor="employeeInput">Choose an Employee</label>
                 <select defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
                     <option value="">Please choose an option</option>
-                    {employees.map(e => <option key={e.id} value={e.id}>{e.fname + e.mname + e.lname}</option>)}
+                    {employees.map(e => <option key={e.id} value={e.id}>{e.fname + (e.mname ?? "") + (e.lname ?? "")}</option>)}
                 </select>
                 <ReimbursementTable />
             </>}>

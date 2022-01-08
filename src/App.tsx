@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import EmployeePage from "./components/employee-page";
 import Login from "./components/login";
+import LogoutButton from "./components/logout-button";
 import ManagerNavBar from "./components/manager-nav-bar";
 import ManagerPage from "./components/manager-page";
 import { PageState } from "./store";
@@ -14,18 +15,21 @@ function App() {
     <h1>Reimbursement System</h1>
     <BrowserRouter>
     {user.isManager && <ManagerNavBar />}
-    <Routes>
     {user.isAuthenticated ? 
-      <>      
-      <Route path='/employee' element={<EmployeePage />}/>
-      <Route path='/manager/*' element={<ManagerPage />}/>
+      <>
+        <LogoutButton />
+        <Routes>
+          <Route path='/employee' element={<EmployeePage />}/>
+          <Route path='/manager/*' element={<ManagerPage />}/>
+        </Routes>
       </>
       :
       <>
-      <Route path='/login' element={<Login />}/>
-      <Route path='*' element={<Navigate to={"/login"}/>}/>
+        <Routes>
+          <Route path='/login' element={<Login />}/>
+          <Route path='*' element={<Navigate to={"/login"}/>}/>
+        </Routes>
       </>}
-    </Routes>
     </BrowserRouter>
   </>);
 }
