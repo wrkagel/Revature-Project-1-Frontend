@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ReimbursementItem from "../entities/reimbursement-item";
 import { actions, PageState } from "../store";
@@ -10,10 +10,7 @@ export default function EmployeePage() {
     const id = useSelector((state:PageState) => state.user.id);
     
     const dispatch = useDispatch();
-    useEffect(() => {getReimbursements()}, [id]);
-
-    async function getReimbursements() {
-
+    useLayoutEffect(() => {(async () => {
         const response = await fetch(`http://localhost:5000/reimbursements/${id}`);
         if(!response || !response.ok) {
             alert('Failure retrieving reimbursements from server.');
@@ -22,7 +19,7 @@ export default function EmployeePage() {
         const reimbursements:ReimbursementItem[] = await response.json();
         const action = actions.updateReimbursementList(reimbursements);
         dispatch(action);
-    }
+    })()}, [id, dispatch]);
 
     return (<>
         <h3>You are on the Employee page</h3>

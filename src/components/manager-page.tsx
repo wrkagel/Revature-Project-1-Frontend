@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import Employee from "../entities/employee";
@@ -15,10 +15,9 @@ export default function ManagerPage() {
 
     const [employees, setEmployees] = useState<Employee[]>([]);
     const employeeInput = useRef<HTMLSelectElement>(null);
-    useEffect(() => {getManages()}, []);
-
-    async function getManages() {    
-        
+    useLayoutEffect(() => {(async () => {        
+        const action = actions.updateReimbursementList([]);
+        dispatch(action);
         const response = await fetch(`http://localhost:5000/employees/${id}`);
         const {manages} = await response.json();
         const response2 = await fetch('http://localhost:5000/employees/managed', {
@@ -27,10 +26,7 @@ export default function ManagerPage() {
             body: JSON.stringify(manages)
         })
         const employees:Employee[] = await response2.json();
-        setEmployees(employees);
-        const action = actions.updateReimbursementList([]);
-        dispatch(action);
-    }
+        setEmployees(employees)})()}, [id, dispatch]);
 
     async function updateReimbursementList() {
         const id:string = employeeInput.current?.value ?? "";
