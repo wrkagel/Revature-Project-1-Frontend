@@ -14,6 +14,7 @@ function App() {
   return (<>
     <h1>Reimbursement System</h1>
     <BrowserRouter>
+    {user.name && <h2>Welcome {user.name}</h2>}
     {user.isManager && <ManagerNavBar />}
     {user.isAuthenticated ? 
       <>

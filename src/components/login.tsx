@@ -41,7 +41,8 @@ export default function Login() {
         const employee:Employee = await response.json();
         const id:string = employee.id;
         const isManager:boolean = employee.manages ? true : false;
-        const action = actions.updateUser({id, isAuthenticated:true, isManager});
+        const name = `${employee.fname} ${employee.mname ?? " "} ${employee.lname ?? " "}`;
+        const action = actions.updateUser({name, id, isAuthenticated:true, isManager});
         dispatch(action);
         navigate(isManager ? '/manager' : '/employee')
     }

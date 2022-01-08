@@ -14,7 +14,7 @@ export interface PageState {
 //     reimbursementList:[]
 // };
 
-const initialState:PageState = {user:{id:"", isAuthenticated:false, isManager:false}, reimbursementList:[]};
+const initialState:PageState = {user:{name:"", id:"", isAuthenticated:false, isManager:false}, reimbursementList:[]};
 
 const pageSlice = createSlice({
     name:"PageStore",
@@ -34,7 +34,7 @@ const pageSlice = createSlice({
         },
 
         clearEmployeeId (state:PageState) {
-            state.user = {id:state.user.id, isAuthenticated:state.user.isAuthenticated, isManager:state.user.isManager}
+            state.user.employeeId = undefined;
         }
 
     }
