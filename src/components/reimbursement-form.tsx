@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux"
+import { backendAddress } from "..";
 import ReimbursementItem, { ReimbursementStatus } from "../entities/reimbursement-item";
 import { actions, PageState } from "../store";
 
@@ -37,7 +38,7 @@ export default function ReimbursementForm() {
             status:ReimbursementStatus.pending
         };
         alert('Submitted');
-        const response = await fetch('http://localhost:5000/reimbursements', {
+        const response = await fetch(`${backendAddress}/reimbursements`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             body:JSON.stringify(newReimbursement)

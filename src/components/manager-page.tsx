@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
+import { backendAddress } from "..";
 import Employee from "../entities/employee";
 import ReimbursementItem from "../entities/reimbursement-item";
 import { actions, PageState } from "../store";
@@ -18,9 +19,9 @@ export default function ManagerPage() {
     useLayoutEffect(() => {(async () => {        
         const action = actions.updateReimbursementList([]);
         dispatch(action);
-        const response = await fetch(`http://localhost:5000/employees/${user.id}`);
+        const response = await fetch(`${backendAddress}/employees/${user.id}`);
         const {manages} = await response.json();
-        const response2 = await fetch('http://localhost:5000/employees/managed', {
+        const response2 = await fetch(`${backendAddress}/employees/managed`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(manages)
@@ -29,24 +30,16 @@ export default function ManagerPage() {
         setEmployees(employees)})()}, [user.id, dispatch]
     );
 
-    // useEffect(() => {
-    //     return () => {
-    //         const action = actions.updateUser({id:user.id, isManager:user.isManager, isAuthenticated:user.isAuthenticated})
-    //         dispatch(action);
-    //     }
-    // }, [dispatch, user])
-
     async function updateReimbursementList() {
         const id:string = employeeInput.current?.value ?? "";
         if(!id) return;
-        const response = await fetch(`http://localhost:5000/reimbursements/${id}`);
+        const response = await fetch(`${backendAddress}/reimbursements/${id}`);
         const reimbursements:ReimbursementItem[] = await response.json();
         const action = actions.updateReimbursementList(reimbursements);
         dispatch(action);
     }
 
     return (<>
-        <h3>You are on the Manager Page</h3>
         <Routes>
             <Route path={'/statistics'} element={<StatisticsPage />}/>
             <Route path={'/reimbursements'} element={<>

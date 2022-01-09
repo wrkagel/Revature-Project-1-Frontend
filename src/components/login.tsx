@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../entities/user";
 import Employee from "../entities/employee";
 import { actions } from "../store";
+import { backendAddress } from "..";
 
 
 export default function Login() {
@@ -21,12 +22,11 @@ export default function Login() {
             alert('Both username and password must be non-empty.')
             return;
         }
-        const response = await fetch('http://localhost:5000/login', {
+        const response = await fetch(`${backendAddress}/login`, {
             method: 'PATCH',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({user:username, pass:password})
         })
-        //const response = await fetch(`http://localhost:5000/login?user=${username}&&pass=${password}`);
         if(!response || !(response.ok)) {
             alert('There was an error communicating with the server.');
             return;

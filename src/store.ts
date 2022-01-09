@@ -29,6 +29,13 @@ const pageSlice = createSlice({
             state.reimbursementList.push(action.payload);
         },
 
+        updateReimbursement(state:PageState, action:PayloadAction<ReimbursementItem>) {
+            const reimbursementIndex:number = state.reimbursementList.findIndex(r => r.id === action.payload.id);
+            if(reimbursementIndex !== -1) {
+                state.reimbursementList[reimbursementIndex] = action.payload;
+            }
+        },
+
         updateReimbursementList (state:PageState, action:PayloadAction<ReimbursementItem[]>) {
             state.reimbursementList = action.payload;
         },
