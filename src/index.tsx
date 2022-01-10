@@ -14,4 +14,4 @@ ReactDOM.render(
 );
 
 //export const backendAddress = 'https://localhost';
-export const backendAddress = 'https://wrkagel-revature-project1.eastus.cloudapp.azure.com'
+export const backendAddress = 'https://wrkagel-revature-project1-backend.eastus.cloudapp.azure.com'

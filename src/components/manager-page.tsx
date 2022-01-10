@@ -8,7 +8,6 @@ import { actions, PageState } from "../store";
 import ReimbursementTable from "./reimbursement-table";
 import StatisticsPage from "./statistics-page";
 
-
 export default function ManagerPage() {
 
     const user = useSelector((state:PageState) => state.user);
@@ -19,18 +18,18 @@ export default function ManagerPage() {
     useLayoutEffect(() => {(async () => {        
         const action = actions.updateReimbursementList([]);
         dispatch(action);
-        const response = await fetch(`${backendAddress}/employees/${user.id}`);
-        const {manages} = await response.json();
-        const response2 = await fetch(`${backendAddress}/employees/managed`, {
-            method: 'PATCH',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(manages)
-        })
-        const employees:Employee[] = await response2.json();
+        const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
+        const employees:Employee[] = await response.json();
         setEmployees(employees)})()}, [user.id, dispatch]
     );
 
+    function updateEmployeeId(employeeId:string) {
+        const action = actions.updateEmployeeId(employeeId);
+        dispatch(action);
+    }
+
     async function updateReimbursementList() {
+        updateEmployeeId(employeeInput.current?.value ?? "");
         const id:string = employeeInput.current?.value ?? "";
         if(!id) return;
         const response = await fetch(`${backendAddress}/reimbursements/${id}`);
