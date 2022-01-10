@@ -18,7 +18,7 @@ function App() {
     {user.isManager && <ManagerNavBar />}
     {user.isAuthenticated ? 
       <>
-        <LogoutButton />
+        <LogoutButton /><br />
         <Routes>
           <Route path='/employee' element={<EmployeePage />}/>
           <Route path='/manager/*' element={<ManagerPage />}/>
