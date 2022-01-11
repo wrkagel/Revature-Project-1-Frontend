@@ -30,7 +30,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
         <tr>
             <td>{type}</td>
             <td>{desc}</td>
-            <td id="amount">{amount}</td>
+            <td id="amount">${amount}</td>
             <td id="status">{status}</td>
             <td>{(new Date(date + 1)).toDateString()}</td>
             <td>{id}</td>{

@@ -5,7 +5,8 @@ import User from "./entities/user";
 
 export interface PageState {
     user:User,
-    reimbursementList:ReimbursementItem[]
+    reimbursementList:ReimbursementItem[],
+    show:boolean
 }
 
 
@@ -14,7 +15,7 @@ export interface PageState {
 //     reimbursementList:[]
 // };
 
-const initialState:PageState = {user:{name:"", id:"", isAuthenticated:false, isManager:false}, reimbursementList:[]};
+const initialState:PageState = {user:{name:"", id:"", isAuthenticated:false, isManager:false}, reimbursementList:[], show:true};
 
 const pageSlice = createSlice({
     name:"PageStore",
@@ -46,6 +47,10 @@ const pageSlice = createSlice({
 
         clearEmployeeId (state:PageState) {
             state.user.employeeId = undefined;
+        },
+
+        updateShow (state:PageState, action:PayloadAction<boolean>) {
+            state.show = action.payload;
         }
 
     }

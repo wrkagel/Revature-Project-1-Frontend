@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { Suspense, useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { backendAddress } from "..";
@@ -10,17 +10,21 @@ import StatisticsPage from "./statistics-page";
 
 export default function ManagerPage() {
 
-    const user = useSelector((state:PageState) => state.user);
+    const {user, show} = useSelector((state:PageState) => state);
     const dispatch = useDispatch();
 
     const [employees, setEmployees] = useState<Employee[]>([]);
     const employeeInput = useRef<HTMLSelectElement>(null);
-    useLayoutEffect(() => {(async () => {        
+    useLayoutEffect(() => {(async () => {   
+        const setShowFalse = actions.updateShow(false);
+        dispatch(setShowFalse);
         const action = actions.updateReimbursementList([]);
         dispatch(action);
         const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
         const employees:Employee[] = await response.json();
-        setEmployees(employees)})()}, [user.id, dispatch]
+        setEmployees(employees);
+        const setShowTrue = actions.updateShow(true);
+        dispatch(setShowTrue)})()}, [user.id, dispatch]
     );
 
     function updateEmployeeId(employeeId:string) {
@@ -39,17 +43,19 @@ export default function ManagerPage() {
     }
 
     return (<>
-        <Routes>
-            <Route path={'/statistics'} element={<StatisticsPage />}/>
-            <Route path={'/reimbursements'} element={<>
-                <label htmlFor="employeeInput">Choose an Employee</label>
-                <select defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
-                    <option value="">Please choose an option</option>
-                    {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
-                </select>
-                <ReimbursementTable />
-            </>}>
-            </Route>
-        </Routes>
+        <Suspense fallback={<h2 className="Loading">Loading Component</h2>}>
+        {show && <>
+            <Routes>
+                <Route path={'/statistics'} element={<StatisticsPage />}/>
+                <Route path={'/reimbursements'} element={<>
+                    <label htmlFor="employeeInput">Choose an Employee</label>
+                    <select defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
+                        <option value="">Please choose an option</option>
+                        {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
+                    </select>
+                    <ReimbursementTable /></>}>
+                </Route>
+        </Routes></>}
+        </Suspense>
     </>)
 }
