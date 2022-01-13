@@ -5,17 +5,17 @@ import User from "./entities/user";
 
 export interface PageState {
     user:User,
-    reimbursementList:ReimbursementItem[],
-    show:boolean
+    reimbursementList:ReimbursementItem[]
 }
 
-
-// const initialState:pageState = {
-//     user:{isAuthenticated:false, isManager:false, id:""},
-//     reimbursementList:[]
-// };
-
-const initialState:PageState = {user:{name:"", id:"", isAuthenticated:false, isManager:false}, reimbursementList:[], show:true};
+const initialState:PageState = {user:
+    {
+    name:sessionStorage.getItem("name") ?? "", 
+    id:sessionStorage.getItem("id") ?? "", 
+    isAuthenticated:sessionStorage.getItem("isAuthenticated") ? true : false, 
+    isManager:sessionStorage.getItem("isManager") ? true : false
+    },
+    reimbursementList:[]};
 
 const pageSlice = createSlice({
     name:"PageStore",
@@ -47,12 +47,7 @@ const pageSlice = createSlice({
 
         clearEmployeeId (state:PageState) {
             state.user.employeeId = undefined;
-        },
-
-        updateShow (state:PageState, action:PayloadAction<boolean>) {
-            state.show = action.payload;
         }
-
     }
 });
 

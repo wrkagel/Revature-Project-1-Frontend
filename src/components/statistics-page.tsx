@@ -10,6 +10,7 @@ export default function StatisticsPage() {
     const id = useSelector((state:PageState) => state.user.id)
 
     const [statistics, setStats] =  useState<JSX.Element[][]>([[]]);
+    const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
         
@@ -23,6 +24,7 @@ export default function StatisticsPage() {
             const parsedCompanyStats = statsParser(companyStats, "company");
             const parsedManagedStats = statsParser(managedStats, "managed");
             setStats([parsedCompanyStats, parsedManagedStats]);
+            setShow(true);
         })()
     },[id]);
 
@@ -44,10 +46,12 @@ export default function StatisticsPage() {
     }
 
     return (<>
+        {show ? <>
         <h3>Company Wide Statistics</h3>
         <ul >{statistics[0]}</ul>
         <h3>Managed Employees Statistics</h3>
         <ul>{statistics[1]}</ul>
         <h4>*<em>Statistics do not include employees without reimbursements.</em></h4>
+        </> : <h2>Loading Statistics</h2>}
     </>)
 }

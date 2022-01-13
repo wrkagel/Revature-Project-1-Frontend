@@ -27,15 +27,18 @@ export default function Login() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({user:username, pass:password})
         })
-        if(!response || !(response.ok)) {
+        if(!response) {
             alert('There was an error communicating with the server.');
             return;
         }
         if(response.status === 404) {
-            alert('No matching username and password found.')
+            alert('No matching username and password found.');
             return;
         } else if (response.status !== 200) {
             alert(await response.text());
+            return;
+        } else if (!response.ok) {
+            alert('There was an error communicating with the server.');
             return;
         }
         const employee:Employee = await response.json();
@@ -44,7 +47,11 @@ export default function Login() {
         const name = `${employee.fname} ${employee.mname ?? " "} ${employee.lname ?? " "}`;
         const action = actions.updateUser({name, id, isAuthenticated:true, isManager});
         dispatch(action);
-        navigate(isManager ? '/manager' : '/employee')
+        sessionStorage.setItem("name", name);
+        sessionStorage.setItem("id", id);
+        sessionStorage.setItem("isAuthenticated", "true");
+        if(isManager) sessionStorage.setItem("isManager", "true");
+        navigate(isManager ? '/manager' : '/employee');
     }
 
     return (<>

@@ -1,4 +1,4 @@
-import { Suspense, useLayoutEffect } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { backendAddress } from "..";
 import ReimbursementItem from "../entities/reimbursement-item";
@@ -8,13 +8,13 @@ import ReimbursementTable from "./reimbursement-table";
 
 export default function EmployeePage() {
 
-    const {id, show} = useSelector((state:PageState) => {return {id:state.user.id, show:state.show}});
+    const id = useSelector((state:PageState) => state.user.id);
     
     const dispatch = useDispatch();
 
+    const [show, setShow] = useState<boolean>(false);
+
     useLayoutEffect(() => {(async () => {
-        const setShowFalse = actions.updateShow(false);
-        dispatch(setShowFalse);
         const action = actions.clearEmployeeId();
         dispatch(action);
         const response = await fetch(`${backendAddress}/reimbursements/${id}`);
@@ -25,14 +25,12 @@ export default function EmployeePage() {
         const reimbursements:ReimbursementItem[] = await response.json();
         const action2 = actions.updateReimbursementList(reimbursements);
         dispatch(action2);
-        const setShowTrue = actions.updateShow(true);
-        dispatch(setShowTrue)})()}, 
+        setShow(true);
+        })()}, 
         [id, dispatch]
     );
 
     return (<>
-        <Suspense fallback={<h2 className="Loading">Loading Component...</h2>}>
-            {show && <ReimbursementTable />}
-        </Suspense>
+        {show && <ReimbursementTable />}
     </>)
 }

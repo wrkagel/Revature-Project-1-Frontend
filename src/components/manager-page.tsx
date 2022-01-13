@@ -1,4 +1,4 @@
-import { Suspense, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { backendAddress } from "..";
@@ -10,21 +10,20 @@ import StatisticsPage from "./statistics-page";
 
 export default function ManagerPage() {
 
-    const {user, show} = useSelector((state:PageState) => state);
+    const user = useSelector((state:PageState) => state.user);
     const dispatch = useDispatch();
 
     const [employees, setEmployees] = useState<Employee[]>([]);
+    const [show, setShow] = useState<boolean>(false);
     const employeeInput = useRef<HTMLSelectElement>(null);
     useLayoutEffect(() => {(async () => {   
-        const setShowFalse = actions.updateShow(false);
-        dispatch(setShowFalse);
         const action = actions.updateReimbursementList([]);
         dispatch(action);
         const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
         const employees:Employee[] = await response.json();
         setEmployees(employees);
-        const setShowTrue = actions.updateShow(true);
-        dispatch(setShowTrue)})()}, [user.id, dispatch]
+        setShow(true);
+        })()}, [user.id, dispatch]
     );
 
     function updateEmployeeId(employeeId:string) {
@@ -43,10 +42,9 @@ export default function ManagerPage() {
     }
 
     return (<>
-        <Suspense fallback={<h2 className="Loading">Loading Component</h2>}>
-        {show && <>
-            <Routes>
-                <Route path={'/statistics'} element={<StatisticsPage />}/>
+        <Routes>
+            <Route path={'/statistics'} element={<StatisticsPage />}/>
+            {show && <>
                 <Route path={'/reimbursements'} element={<>
                     <label htmlFor="employeeInput">Choose an Employee</label>
                     <select defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
@@ -55,7 +53,7 @@ export default function ManagerPage() {
                     </select>
                     <ReimbursementTable /></>}>
                 </Route>
-        </Routes></>}
-        </Suspense>
+            </>}
+        </Routes>
     </>)
 }

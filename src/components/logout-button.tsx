@@ -9,6 +9,7 @@ export default function LogoutButton() {
     //const navigate = useNavigate();
 
     function logout() {
+        sessionStorage.clear();
         const action = actions.updateUser({name: "", id:"", isAuthenticated:false, isManager:false})
         const action2 = actions.updateReimbursementList([]);
         dispatch(action2);
