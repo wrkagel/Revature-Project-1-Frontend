@@ -108,6 +108,6 @@ export default function ReimbursementForm() {
             </tr>
         </tbody>
     </table>
-    <button onClick={addReimbursement}>Submit</button>
+    <button className="btn btn-secondary" onClick={addReimbursement}>Submit</button>
     </>)
 }

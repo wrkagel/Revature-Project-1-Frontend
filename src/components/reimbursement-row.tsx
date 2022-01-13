@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { backendAddress } from "..";
 import ReimbursementItem from "../entities/reimbursement-item";
@@ -10,6 +11,8 @@ export default function ReimbursementRow(props:ReimbursementItem) {
     const dispatch = useDispatch();
 
     const {id, employeeId, type, desc, amount, date, status} = props;
+
+    const fileInput = useRef<HTMLInputElement>(null);
 
     async function updateReimbursement(newStatus:string) {
         const response = await fetch(`${backendAddress}/reimbursements/update`, {
@@ -25,6 +28,30 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             alert(await response.text());
         }
     }
+
+    async function uploadFile() {
+        const files:FileList | null = fileInput.current?.files ?? null;
+        if(!files) return;
+        const response = await fetch(`${backendAddress}/reimbursements/:id/upload`, {
+            method:"PATCH",
+            headers: {
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify(files)
+        });
+        if(!response) {
+            alert('Error communicating with server.');
+            return;
+        }
+        if(response.status === 404) {
+            alert('No matching reimbursement found in database.')
+        }
+        if(response.status === 200) {
+            alert(`File${files.length > 1 ? "s": ""} uploaded successfully`);
+        } else {
+            alert(await response.text());
+        }
+    }
     
     return (
         <tr>
@@ -32,12 +59,13 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             <td>{desc}</td>
             <td id="amount">${amount}</td>
             <td id="status">{status}</td>
-            <td>{(new Date(date + 1)).toDateString()}</td>
+            <td>{(new Date(date)).toDateString()}</td>
             <td>{id}</td>{
             (isManager && userId !== employeeId) && 
             (<><td>{employeeId}</td><td>
-                <button onClick={() => updateReimbursement('approved')}>Approve</button>
-                <button onClick={() => updateReimbursement('denied')}>Deny</button>
-            </td></>)
-    }</tr>)
+                <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
+                <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
+            </td></>)}
+            <td><input className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/></td>
+        </tr>)
 }

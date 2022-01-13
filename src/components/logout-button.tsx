@@ -17,6 +17,6 @@ export default function LogoutButton() {
     }
 
     return (<>
-        <button id="logoutBtn" onClick={logout}>Logout</button>
+        <button className="btn btn-primary" id="logoutBtn" onClick={logout} style={{float:"right"}}>Logout</button>
     </>)
 }

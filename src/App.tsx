@@ -12,13 +12,16 @@ function App() {
   const user = useSelector((state:PageState)=>state.user);
 
   return (<>
-    <h1>Reimbursement System</h1>
+    <div className="jumbotron">
+      <h1 className="display-3">Reimbursement System</h1>
+    </div>
     <BrowserRouter>
-    {user.name && <h2>Welcome {user.name}</h2>}
     {user.isManager && <ManagerNavBar />}
     {user.isAuthenticated ? 
       <>
-        <LogoutButton /><br />
+      <div>
+        <h2>Welcome {user.name}<LogoutButton /></h2>
+      </div>
         <Routes>
           <Route path='/employee' element={<EmployeePage />}/>
           <Route path='/manager/*' element={<ManagerPage />}/>
