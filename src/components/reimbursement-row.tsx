@@ -32,12 +32,19 @@ export default function ReimbursementRow(props:ReimbursementItem) {
     async function uploadFile() {
         const files:FileList | null = fileInput.current?.files ?? null;
         if(!files) return;
-        const response = await fetch(`${backendAddress}/reimbursements/:id/upload`, {
+        const fileList:string[] = [];
+        for(let i = 0; i < files.length; i++) {
+            const file:File | null = files.item(i); 
+            if(file) {
+                fileList.push(await file.text());
+            }
+        }
+        const response = await fetch(`${backendAddress}/reimbursements/${id}/upload`, {
             method:"PATCH",
             headers: {
                 "Content-Type":"application/json"
             },
-            body:JSON.stringify(files)
+            body:JSON.stringify(fileList)
         });
         if(!response) {
             alert('Error communicating with server.');

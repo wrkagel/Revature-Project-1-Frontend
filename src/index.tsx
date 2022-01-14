@@ -6,7 +6,7 @@ import { pageStore } from './store';
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 //export const backendAddress = 'https://localhost';
-export const backendAddress = 'https://wrkagel-revature-project1-backend.eastus.cloudapp.azure.com'
+export const backendAddress = 'wk-revature-vm.eastus.cloudapp.azure.com'
 
 ReactDOM.render(
   <React.StrictMode>
