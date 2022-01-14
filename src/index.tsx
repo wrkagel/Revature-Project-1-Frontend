@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import App from './App';
 import { pageStore } from './store';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import './style/bootstrap.min.css'
 
 //export const backendAddress = 'https://localhost';
 export const backendAddress = 'https://wk-revature-vm.eastus.cloudapp.azure.com'
