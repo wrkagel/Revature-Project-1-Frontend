@@ -31,20 +31,17 @@ export default function ReimbursementRow(props:ReimbursementItem) {
 
     async function uploadFile() {
         const files:FileList | null = fileInput.current?.files ?? null;
+        const fd = new FormData();
         if(!files) return;
-        const fileList:string[] = [];
         for(let i = 0; i < files.length; i++) {
-            const file:File | null = files.item(i); 
+            const file:File | null = files.item(i);
             if(file) {
-                fileList.push(await file.text());
+                fd.append('uploads', file)
             }
         }
         const response = await fetch(`${backendAddress}/reimbursements/${id}/upload`, {
-            method:"PATCH",
-            headers: {
-                "Content-Type":"application/json"
-            },
-            body:JSON.stringify(fileList)
+            method:"POST",
+            body:fd
         });
         if(!response) {
             alert('Error communicating with server.');
@@ -73,6 +70,6 @@ export default function ReimbursementRow(props:ReimbursementItem) {
                 <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
                 <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
             </td></>)}
-            <td><input className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/></td>
+            <td><input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/></td>
         </tr>)
 }
