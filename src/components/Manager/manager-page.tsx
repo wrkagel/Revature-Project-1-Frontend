@@ -20,8 +20,8 @@ export default function ManagerPage() {
         const action = actions.updateReimbursementList([]);
         dispatch(action);
         const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
-        const employees:Employee[] = await response.json();
-        setEmployees(employees);
+        const managedEmployees:Employee[] = await response.json();
+        setEmployees(managedEmployees);
         setShow(true);
         })()}, [user.id, dispatch]
     );
