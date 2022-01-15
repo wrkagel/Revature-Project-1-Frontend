@@ -1,11 +1,11 @@
 import { useLayoutEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-import { backendAddress } from "..";
-import Employee from "../entities/employee";
-import ReimbursementItem from "../entities/reimbursement-item";
-import { actions, PageState } from "../store";
-import ReimbursementTable from "./reimbursement-table";
+import { backendAddress } from "../..";
+import Employee from "../../entities/employee";
+import ReimbursementItem from "../../entities/reimbursement-item";
+import { actions, PageState } from "../../store";
+import ReimbursementTable from "../Reimbursements/reimbursement-table";
 import StatisticsPage from "./statistics-page";
 
 export default function ManagerPage() {

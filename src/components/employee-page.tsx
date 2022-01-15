@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { backendAddress } from "..";
 import ReimbursementItem from "../entities/reimbursement-item";
 import { actions, PageState } from "../store";
-import ReimbursementTable from "./reimbursement-table";
+import ReimbursementTable from "./Reimbursements/reimbursement-table";
 
 
 export default function EmployeePage() {

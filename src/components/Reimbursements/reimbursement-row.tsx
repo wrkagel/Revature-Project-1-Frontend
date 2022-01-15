@@ -1,8 +1,8 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { backendAddress } from "..";
-import ReimbursementItem from "../entities/reimbursement-item";
-import { actions, PageState } from "../store";
+import { backendAddress } from "../..";
+import ReimbursementItem from "../../entities/reimbursement-item";
+import { actions, PageState } from "../../store";
 
 
 export default function ReimbursementRow(props:ReimbursementItem) {

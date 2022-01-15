@@ -3,8 +3,8 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import EmployeePage from "./components/employee-page";
 import Login from "./components/login";
 import LogoutButton from "./components/logout-button";
-import ManagerNavBar from "./components/manager-nav-bar";
-import ManagerPage from "./components/manager-page";
+import ManagerNavBar from "./components/Manager/manager-nav-bar";
+import ManagerPage from "./components/Manager/manager-page";
 import { PageState } from "./store";
 
 function App() {
