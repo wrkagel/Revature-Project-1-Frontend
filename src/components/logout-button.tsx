@@ -1,12 +1,10 @@
 import { useDispatch } from "react-redux"
-//import { useNavigate } from "react-router-dom";
 import { actions } from "../store";
 
 
 export default function LogoutButton() {
 
     const dispatch = useDispatch();
-    //const navigate = useNavigate();
 
     function logout() {
         sessionStorage.clear();
