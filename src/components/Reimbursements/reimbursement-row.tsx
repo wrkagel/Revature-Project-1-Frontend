@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { backendAddress } from "../..";
-import ReimbursementItem from "../../entities/reimbursement-item";
+import ReimbursementItem, { ReimbursementStatus } from "../../entities/reimbursement-item";
 import { actions, PageState } from "../../store";
 
 
@@ -66,9 +66,11 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             <td>{(new Date(date)).toDateString()}</td>
             <td>{id}</td>{
             (isManager && userId !== employeeId) && 
-            (<><td>{employeeId}</td><td>
-                <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
-                <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
+            (<><td>{employeeId}</td>
+                <td>{status === ReimbursementStatus.pending && <>
+                    <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
+                    <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
+                </>}
             </td></>)}
             <td><input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/></td>
         </tr>)
