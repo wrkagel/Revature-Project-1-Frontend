@@ -56,7 +56,7 @@ export default function Login() {
 
     return (<>
         <input ref={nameInput} id="nameInput" placeholder="username" type="text" /><br />
-        <input ref={passInput} id="passInput" placeholder="password" type="text" /><br />
+        <input ref={passInput} id="passInput" placeholder="password" type="password" /><br />
         <button className="btn btn-primary" onClick={validateUser}>Login</button>
     </>)
 }
