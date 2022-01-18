@@ -5,7 +5,7 @@ import App from './App';
 import { pageStore } from './store';
 import './style/bootstrap.min.css'
 
-//export const backendAddress = 'https://localhost';
+//export const backendAddress = 'http://localhost';
 export const backendAddress = 'https://wk-revature-vm.eastus.cloudapp.azure.com'
 
 ReactDOM.render(

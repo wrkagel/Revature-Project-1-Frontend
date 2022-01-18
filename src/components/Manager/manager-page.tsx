@@ -48,7 +48,7 @@ export default function ManagerPage() {
                         <option className="dropdown-item" value="">Please choose an option</option>
                         {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
                     </select>
-                    <ReimbursementTable employeeId={employeeId}/></>}>
+                    {employeeId && <ReimbursementTable employeeId={employeeId}/>}</>}>
                 </Route>
             </>}
         </Routes>

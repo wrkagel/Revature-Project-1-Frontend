@@ -48,9 +48,6 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             alert('Error communicating with server.');
             return;
         }
-        if(response.status === 404) {
-            alert('No matching reimbursement found in database.')
-        }
         if(response.status === 201) {
             alert(`File${files.length > 1 ? "s": ""} uploaded successfully`);
         } else {
@@ -63,9 +60,6 @@ export default function ReimbursementRow(props:ReimbursementItem) {
         if(!response) {
             alert('Error communicating with server.');
             return;
-        }
-        if(response.status === 404) {
-            alert('No matching reimbursement found in database.')
         }
         if(response.status === 200) {
             const blob:Blob = await response.blob();
