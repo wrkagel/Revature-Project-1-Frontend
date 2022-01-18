@@ -39,14 +39,6 @@ const pageSlice = createSlice({
 
         updateReimbursementList (state:PageState, action:PayloadAction<ReimbursementItem[]>) {
             state.reimbursementList = action.payload;
-        },
-
-        updateEmployeeId (state:PageState, action:PayloadAction<string>) {
-            state.user.employeeId = action.payload;
-        },
-
-        clearEmployeeId (state:PageState) {
-            state.user.employeeId = undefined;
         }
     }
 });

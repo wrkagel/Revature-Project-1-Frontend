@@ -15,8 +15,6 @@ export default function EmployeePage() {
     const [show, setShow] = useState<boolean>(false);
 
     useLayoutEffect(() => {(async () => {
-        const action = actions.clearEmployeeId();
-        dispatch(action);
         const response = await fetch(`${backendAddress}/reimbursements/${id}`);
         if(!response || response.status !== 200) {
             alert('Failure retrieving reimbursements from server.');
@@ -31,6 +29,6 @@ export default function EmployeePage() {
     );
 
     return (<>
-        {show && <ReimbursementTable />}
+        {show && <ReimbursementTable employeeId={id}/>}
     </>)
 }

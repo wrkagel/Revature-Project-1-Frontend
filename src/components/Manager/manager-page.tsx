@@ -15,7 +15,9 @@ export default function ManagerPage() {
 
     const [employees, setEmployees] = useState<Employee[]>([]);
     const [show, setShow] = useState<boolean>(false);
+    const [employeeId, setEmployeeId] = useState<string>("");
     const employeeInput = useRef<HTMLSelectElement>(null);
+
     useLayoutEffect(() => {(async () => {   
         const action = actions.updateReimbursementList([]);
         dispatch(action);
@@ -26,19 +28,14 @@ export default function ManagerPage() {
         })()}, [user.id, dispatch]
     );
 
-    function updateEmployeeId(employeeId:string) {
-        const action = actions.updateEmployeeId(employeeId);
-        dispatch(action);
-    }
-
     async function updateReimbursementList() {
-        updateEmployeeId(employeeInput.current?.value ?? "");
         const id:string = employeeInput.current?.value ?? "";
         if(!id) return;
         const response = await fetch(`${backendAddress}/reimbursements/${id}`);
         const reimbursements:ReimbursementItem[] = await response.json();
         const action = actions.updateReimbursementList(reimbursements);
         dispatch(action);
+        setEmployeeId(id);
     }
 
     return (<>
@@ -51,7 +48,7 @@ export default function ManagerPage() {
                         <option className="dropdown-item" value="">Please choose an option</option>
                         {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
                     </select>
-                    <ReimbursementTable /></>}>
+                    <ReimbursementTable employeeId={employeeId}/></>}>
                 </Route>
             </>}
         </Routes>

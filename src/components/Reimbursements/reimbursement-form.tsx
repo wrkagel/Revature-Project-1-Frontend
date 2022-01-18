@@ -5,11 +5,13 @@ import ReimbursementItem, { ReimbursementStatus } from "../../entities/reimburse
 import { actions, PageState } from "../../store";
 
 
-export default function ReimbursementForm() {
+export default function ReimbursementForm(props:{employeeId:string}) {
 
     const dispatch = useDispatch();
 
-    const {id, employeeId} = useSelector((state:PageState) => state.user);
+    const {id} = useSelector((state:PageState) => state.user);
+
+    const {employeeId} = props;
 
 
     const typeInput = useRef<HTMLInputElement>(null);

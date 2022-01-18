@@ -74,7 +74,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
                 downloadAnchor.current.href = url;
                 downloadAnchor.current.click();
                 URL.revokeObjectURL(url);
-                downloadAnchor.current.href = "";
+                downloadAnchor.current.href = "#!";
             } else {
                 alert('Error while trying to download files to your computer.');
             }
@@ -102,7 +102,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
                 <input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
                 <button onClick={downloadFiles}>Download Files</button>
                 {/* eslint-disable-next-line */}
-                <a ref={downloadAnchor} href="javascript:void(0)" download={`${id}_files.zip`} hidden={true} style={{display:"none"}}>Download Files</a>
+                <a ref={downloadAnchor} href="#!" download={`${id}_files.zip`} hidden={true} style={{display:"none"}}>Download Files</a>
             </td>
         </tr>)
 }
