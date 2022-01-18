@@ -100,7 +100,8 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             </td></>)}
             <td>
                 <input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
-                <button onClick={downloadFiles}>Download Files</button><a ref={downloadAnchor} download={`${id}_files.zip`} hidden={true} style={{display:"none"}}></a>
+                <button onClick={downloadFiles}>Download Files</button>
+                <a ref={downloadAnchor} download={`${id}_files.zip`} hidden={true} style={{display:"none"}}>Download Files</a>
             </td>
         </tr>)
 }
