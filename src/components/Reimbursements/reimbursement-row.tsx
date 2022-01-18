@@ -8,6 +8,7 @@ import { actions, PageState } from "../../store";
 export default function ReimbursementRow(props:ReimbursementItem) {
 
     const {isManager, id:userId} = useSelector((state:PageState) => state.user);
+    const downloadAnchor = useRef<HTMLAnchorElement>(null);
     const dispatch = useDispatch();
 
     const {id, employeeId, type, desc, amount, date, status} = props;
@@ -50,8 +51,33 @@ export default function ReimbursementRow(props:ReimbursementItem) {
         if(response.status === 404) {
             alert('No matching reimbursement found in database.')
         }
-        if(response.status === 200) {
+        if(response.status === 201) {
             alert(`File${files.length > 1 ? "s": ""} uploaded successfully`);
+        } else {
+            alert(await response.text());
+        }
+    }
+
+    async function downloadFiles() {
+        const response = await fetch(`${backendAddress}/reimbursements/${id}/download`);
+        if(!response) {
+            alert('Error communicating with server.');
+            return;
+        }
+        if(response.status === 404) {
+            alert('No matching reimbursement found in database.')
+        }
+        if(response.status === 200) {
+            const blob:Blob = await response.blob();
+            const url = URL.createObjectURL(blob);
+            if(downloadAnchor.current) {
+                downloadAnchor.current.href = url;
+                downloadAnchor.current.click();
+                URL.revokeObjectURL(url);
+                downloadAnchor.current.href = "";
+            } else {
+                alert('Error while trying to download files to your computer.');
+            }
         } else {
             alert(await response.text());
         }
@@ -72,6 +98,9 @@ export default function ReimbursementRow(props:ReimbursementItem) {
                     <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
                 </>}
             </td></>)}
-            <td><input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/></td>
+            <td>
+                <input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
+                <button onClick={downloadFiles}>Download Files</button><a ref={downloadAnchor} download={`${id}_files.zip`} hidden={true} style={{display:"none"}}></a>
+            </td>
         </tr>)
 }
