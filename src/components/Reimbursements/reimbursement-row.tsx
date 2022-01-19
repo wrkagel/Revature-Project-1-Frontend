@@ -88,16 +88,17 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             (isManager && userId !== employeeId) && 
             (<><td>{employeeId}</td>
                 <td>{status === ReimbursementStatus.pending ? <>
-                    <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
-                    <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
+                    <button className="btn btn-outline-success" onClick={() => updateReimbursement('approved')}>Approve</button>
+                    <button className="btn btn-outline-danger" onClick={() => updateReimbursement('denied')}>Deny</button>
                     </>
                     :
                     <button className="btn btn-outline-info" onClick={() => updateReimbursement('pending')}>Set Pending</button>
                 }
             </td></>)}
             <td>
-                <input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
-                <button onClick={downloadFiles}>Download Files</button>
+                <label className="me-3 btn btn-info" htmlFor="fileInput">Upload Files</label>
+                <input multiple className="d-none btn btn-outline-info" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
+                <button className="btn btn-outline-info" onClick={downloadFiles}>Download Files</button>
                 {/* eslint-disable-next-line */}
                 <a ref={downloadAnchor} href="#!" download={`${id}_files.zip`} hidden={true} style={{display:"none"}}>Download Files</a>
             </td>

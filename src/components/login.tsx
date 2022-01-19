@@ -54,9 +54,10 @@ export default function Login() {
         navigate(isManager ? '/manager' : '/employee');
     }
 
-    return (<>
-        <input ref={nameInput} id="nameInput" placeholder="username" type="text" /><br />
-        <input ref={passInput} id="passInput" placeholder="password" type="password" /><br />
-        <button className="btn btn-primary" onClick={validateUser}>Login</button>
-    </>)
+    return (<div className="flex-column d-flex p-3">
+        <input className="d-inline-flex p-3" ref={nameInput} id="nameInput" placeholder="username" type="text" /><br />
+        <input className="d-inline-flex p-3" ref={passInput} id="passInput" placeholder="password" type="password" /><br />
+        <label className="text-center btn btn-primary" htmlFor="Login">Login</label>
+        <button className="d-none" onClick={validateUser} id="Login">Login</button>
+    </div>)
 }

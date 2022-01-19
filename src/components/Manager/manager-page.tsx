@@ -44,7 +44,7 @@ export default function ManagerPage() {
             {show && <>
                 <Route path={'/reimbursements'} element={<>
                     <label htmlFor="employeeInput">Choose an Employee</label>
-                    <select className="nav-item dropdown" defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
+                    <select className="dropdown" defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
                         <option className="dropdown-item" value="">Please choose an option</option>
                         {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
                     </select>
