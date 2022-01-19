@@ -87,10 +87,13 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             <td>{id}</td>{
             (isManager && userId !== employeeId) && 
             (<><td>{employeeId}</td>
-                <td>{status === ReimbursementStatus.pending && <>
+                <td>{status === ReimbursementStatus.pending ? <>
                     <button className="btn btn-outline-info" onClick={() => updateReimbursement('approved')}>Approve</button>
                     <button className="btn btn-outline-info" onClick={() => updateReimbursement('denied')}>Deny</button>
-                </>}
+                    </>
+                    :
+                    <button className="btn btn-outline-info" onClick={() => updateReimbursement('pending')}>Set Pending</button>
+                }
             </td></>)}
             <td>
                 <input multiple className="btn btn-secondary" id="fileInput" ref={fileInput} type="file" accept=".pdf,image/png,image/jpeg" onInput={uploadFile}/>
