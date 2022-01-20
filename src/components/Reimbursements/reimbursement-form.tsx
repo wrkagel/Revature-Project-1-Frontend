@@ -110,6 +110,6 @@ export default function ReimbursementForm(props:{employeeId:string}) {
             </tr>
         </tbody>
     </table>
-    <button className="btn btn-secondary" onClick={addReimbursement}>Submit</button>
+    <button className="btn btn-success btn-lg" onClick={addReimbursement}>Submit</button>
     </>)
 }
