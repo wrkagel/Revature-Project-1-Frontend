@@ -17,7 +17,7 @@ export default function ReimbursementTable(props:{employeeId:string}) {
             <thead>
                 <tr><th>Type</th><th>Description</th><th>Amount</th><th>Status</th><th>Date</th><th>id</th>{
                 (isManager && id !== employeeId) && (<><th>Employee ID</th><th>Manager Only</th></>)}
-                <th>Upload File</th></tr>
+                <th>Files</th></tr>
             </thead>
             <tbody>
                 {reimbursementRows}
