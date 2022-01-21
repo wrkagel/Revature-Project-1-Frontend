@@ -5,8 +5,8 @@ import App from './App';
 import { pageStore } from './store';
 import './style/bootstrap.min.css'
 
-export const backendAddress = 'http://localhost:5000';
-//export const backendAddress = 'https://wk-reimbursements-backend.azurewebsites.net'
+//export const backendAddress = 'http://localhost:5000';
+export const backendAddress = 'https://wk-reimbursements-backend.azurewebsites.net'
 
 ReactDOM.render(
   <React.StrictMode>
