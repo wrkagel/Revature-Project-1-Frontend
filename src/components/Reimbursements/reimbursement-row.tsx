@@ -78,7 +78,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
         }
     }
 
-    function managerButtons(status:ReimbursementStatus) {
+    const ManagerButtons = () => {
         switch(props.status) {
             case ReimbursementStatus.pending: {
                 return (<>
@@ -97,6 +97,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
                 console.log('Reached default in managerButtons switch in reimbursement-row.tsx');
             }
         }
+        return null;
     }
     
     return (
@@ -109,7 +110,7 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             <td>{id}</td>{
             (isManager && userId !== employeeId) && 
             (<><td>{employeeId}</td>
-                <td>{managerButtons(status)}
+                <td>{<ManagerButtons/>}
             </td></>)}
             <td>
                 <label className="me-3 btn btn-info" htmlFor={`${id}_input`}>Upload Files</label>

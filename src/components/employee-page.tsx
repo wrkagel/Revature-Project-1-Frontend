@@ -29,6 +29,6 @@ export default function EmployeePage() {
     );
 
     return (<>
-        {show && <ReimbursementTable employeeId={id}/>}
+        {show ? <ReimbursementTable employeeId={id}/> : <h2>Loading Reimbursements</h2>}
     </>)
 }

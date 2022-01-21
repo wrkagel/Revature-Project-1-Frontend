@@ -13,9 +13,9 @@ export default function StatisticsPage() {
     const [show, setShow] = useState<boolean>(false);
 
     useEffect(() => {
-        
+        const controller = new AbortController();
         (async () => {
-            const response = await fetch(`${backendAddress}/stats/${id}`);
+            const response = await fetch(`${backendAddress}/stats/${id}`, {signal: controller.signal});
             if(!response || !(response.ok)) {
                 alert('There was an error communicating with the server.');
                 return;
@@ -26,6 +26,7 @@ export default function StatisticsPage() {
             setStats([parsedCompanyStats, parsedManagedStats]);
             setShow(true);
         })()
+        return () => {controller.abort()};
     },[id]);
 
     function statsParser(stats:Statistics, name:string) {

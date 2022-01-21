@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Route, Routes } from "react-router-dom";
 import { backendAddress } from "../..";
@@ -18,7 +18,7 @@ export default function ManagerPage() {
     const [employeeId, setEmployeeId] = useState<string>("");
     const employeeInput = useRef<HTMLSelectElement>(null);
 
-    useLayoutEffect(() => {(async () => {   
+    useEffect(() => {(async () => {   
         const action = actions.updateReimbursementList([]);
         dispatch(action);
         const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
@@ -42,13 +42,15 @@ export default function ManagerPage() {
         <Routes>
             <Route path={'/statistics'} element={<StatisticsPage />}/>
             {show && <>
-                <Route path={'/reimbursements'} element={<>
+                <Route path={'/reimbursements'} element={employees.length > 0 ? <>
                     <label htmlFor="employeeInput">Choose an Employee</label>
                     <select className="dropdown" defaultValue={""} onChange={updateReimbursementList} ref={employeeInput} id="employeeInput">
                         <option className="dropdown-item" value="">Please choose an option</option>
                         {employees.map(e => <option key={e.id} value={e.id}>{`${e.fname} ${e.mname ?? " "} ${e.lname ?? " "}`}</option>)}
                     </select>
-                    {employeeId && <ReimbursementTable employeeId={employeeId}/>}</>}>
+                    {employeeId && <ReimbursementTable employeeId={employeeId}/>}</>
+                    :
+                    <h2>Loading Employees</h2>}>
                 </Route>
             </>}
         </Routes>
