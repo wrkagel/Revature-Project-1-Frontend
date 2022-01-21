@@ -18,14 +18,18 @@ export default function ManagerPage() {
     const [employeeId, setEmployeeId] = useState<string>("");
     const employeeInput = useRef<HTMLSelectElement>(null);
 
-    useEffect(() => {(async () => {   
-        const action = actions.updateReimbursementList([]);
-        dispatch(action);
-        const response = await fetch(`${backendAddress}/employees/managed/${user.id}`)
-        const managedEmployees:Employee[] = await response.json();
-        setEmployees(managedEmployees);
-        setShow(true);
-        })()}, [user.id, dispatch]
+    useEffect(() => {
+        const controller = new AbortController();
+        (async () => {   
+            const action = actions.updateReimbursementList([]);
+            dispatch(action);
+            const response = await fetch(`${backendAddress}/employees/managed/${user.id}`, {signal:controller.signal});
+            const managedEmployees:Employee[] = await response.json();
+            setEmployees(managedEmployees);
+            setShow(true);
+        })();
+        return () => controller.abort();
+    }, [user.id, dispatch]
     );
 
     async function updateReimbursementList() {

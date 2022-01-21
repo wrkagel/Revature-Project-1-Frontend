@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
-import EmployeePage from "./components/employee-page";
-import Login from "./components/login";
-import LogoutButton from "./components/logout-button";
+import EmployeePage from "./components/User/employee-page";
+import Login from "./components/User/login";
+import LogoutButton from "./components/User/logout-button";
 import ManagerNavBar from "./components/Manager/manager-nav-bar";
 import ManagerPage from "./components/Manager/manager-page";
 import { PageState } from "./store";

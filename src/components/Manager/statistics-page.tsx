@@ -25,7 +25,7 @@ export default function StatisticsPage() {
             const parsedManagedStats = statsParser(managedStats, "managed");
             setStats([parsedCompanyStats, parsedManagedStats]);
             setShow(true);
-        })()
+        })();
         return () => {controller.abort()};
     },[id]);
 

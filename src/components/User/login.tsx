@@ -2,17 +2,17 @@ import { Dispatch } from "@reduxjs/toolkit";
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import User from "../entities/user";
-import Employee from "../entities/employee";
-import { actions } from "../store";
-import { backendAddress } from "..";
+import User from "../../entities/user";
+import Employee from "../../entities/employee";
+import { actions } from "../../store";
+import { backendAddress } from "../..";
 
 
 export default function Login() {
 
     const nameInput = useRef<HTMLInputElement>(null);
     const passInput = useRef<HTMLInputElement>(null);
-    const [isClicked, setIsClicked] = useState<boolean>(false);
+    const [isClicked, setIsClicked] = useState<{}>();
 
     const dispatch = useDispatch<Dispatch<{type:string, payload:User}>>();
     const navigate = useNavigate();
@@ -81,6 +81,6 @@ export default function Login() {
         <input className="d-inline-flex p-3" ref={nameInput} id="nameInput" placeholder="username" type="text" /><br />
         <input className="d-inline-flex p-3" ref={passInput} id="passInput" placeholder="password" type="password" /><br />
         <label className="text-center btn btn-primary" htmlFor="Login">Login</label>
-        <button className="d-none" onClick={() => setIsClicked(true)} id="Login">Login</button>
+        <button className="d-none" onClick={() => setIsClicked({...isClicked})} id="Login">Login</button>
     </div>)
 }

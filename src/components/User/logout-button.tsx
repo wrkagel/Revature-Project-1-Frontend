@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { actions } from "../store";
+import { actions } from "../../store";
 
 
 export default function LogoutButton() {

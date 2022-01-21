@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux"
 import { backendAddress } from "../..";
 import ReimbursementItem, { ReimbursementStatus } from "../../entities/reimbursement-item";
@@ -19,41 +19,51 @@ export default function ReimbursementForm(props:{employeeId:string}) {
     const amountInput = useRef<HTMLInputElement>(null);
     const dateInput = useRef<HTMLInputElement>(null);
 
-    async function addReimbursement() {
-        const type:string = typeInput.current?.value ?? "";
-        const desc:string = descInput.current?.value ?? "";
-        const amount = amountInput.current?.valueAsNumber ?? NaN;
-        const date = dateInput.current?.valueAsNumber ?? NaN;
-        const {valid, alertMessage } = checkValid(type, desc, amount, date);
-        if(!valid) {
-            alert(alertMessage);
-            return;
-        }
+    const [submit, setSubmit] = useState<{}>();
 
-        const newReimbursement:ReimbursementItem = {
-            type:type,
-            desc:desc,
-            amount:parseFloat(amount.toFixed(2)),
-            date: date + (new Date()).getTimezoneOffset() * 60000, // Adjust for local timezone
-            id:"",
-            employeeId: employeeId ?? id,
-            status:ReimbursementStatus.pending
-        };
-        alert('Submitted');
-        const response = await fetch(`${backendAddress}/reimbursements`, {
-            method: "POST",
-            headers: {'Content-Type': 'application/json'},
-            body:JSON.stringify(newReimbursement)
-        })
-        if(response.status === 201) {
-            const returnedReimbursement:ReimbursementItem = await response.json();
-            clearForm();
-            const action = actions.addReimbursementItemToList(returnedReimbursement);
-            dispatch(action);
-        } else {
-            alert(await response.text());
-        }
-    }
+    useEffect(() => {
+        if(!submit) return;
+        const controller = new AbortController();
+        (
+            async () => {
+                const type:string = typeInput.current?.value ?? "";
+                const desc:string = descInput.current?.value ?? "";
+                const amount = amountInput.current?.valueAsNumber ?? NaN;
+                const date = dateInput.current?.valueAsNumber ?? NaN;
+                const {valid, alertMessage } = checkValid(type, desc, amount, date);
+                if(!valid) {
+                    alert(alertMessage);
+                    return;
+                }
+        
+                const newReimbursement:ReimbursementItem = {
+                    type:type,
+                    desc:desc,
+                    amount:parseFloat(amount.toFixed(2)),
+                    date: date + (new Date()).getTimezoneOffset() * 60000, // Adjust for local timezone
+                    id:"",
+                    employeeId: employeeId ?? id,
+                    status:ReimbursementStatus.pending
+                };
+                const response = await fetch(`${backendAddress}/reimbursements`, {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body:JSON.stringify(newReimbursement),
+                    signal:controller.signal
+                })
+                if(response.status === 201) {
+                    alert('Submitted');
+                    const returnedReimbursement:ReimbursementItem = await response.json();
+                    clearForm();
+                    const action = actions.addReimbursementItemToList(returnedReimbursement);
+                    dispatch(action);
+                } else {
+                    alert(await response.text());
+                }
+            }
+        )();
+        return () => controller.abort();
+    }, [submit, dispatch, employeeId, id])
 
     function checkValid(type:string, desc:string, amount:number, date:number) {
         let valid = true;
@@ -110,6 +120,6 @@ export default function ReimbursementForm(props:{employeeId:string}) {
             </tr>
         </tbody>
     </table>
-    <button className="btn btn-success btn-lg" onClick={addReimbursement}>Submit</button>
+    <button className="btn btn-success btn-lg" onClick={() => setSubmit({...submit})}>Submit</button>
     </>)
 }
