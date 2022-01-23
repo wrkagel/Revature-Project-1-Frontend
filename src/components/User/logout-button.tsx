@@ -15,6 +15,7 @@ export default function LogoutButton() {
     }
 
     return (<>
-        <button className="btn btn-primary btn-lg" id="logoutBtn" onClick={logout} style={{float:"right"}}>Logout</button>
+        <label className="btn btn-outline-dark btn-lg position-absolute end-0 mt-3" htmlFor="logoutBtn" tabIndex={0}>Logout</label>
+        <button className="d-none" id="logoutBtn" onClick={logout}/>
     </>)
 }

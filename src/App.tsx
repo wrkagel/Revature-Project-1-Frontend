@@ -13,14 +13,14 @@ function App() {
 
   return (<>
     <div className="jumbotron">
-      <h1 className="display-3">Reimbursement System</h1>
+      <h1 className="display-3 text-center">Reimbursement System{user.isAuthenticated && <LogoutButton />}</h1>
     </div>
     <BrowserRouter>
     {user.isManager && <ManagerNavBar />}
     {user.isAuthenticated ? 
       <>
       <div>
-        <h2>Welcome {user.name}<LogoutButton /></h2>
+        <h2>Welcome {user.name}</h2>
       </div>
         <Routes>
           <Route path='/employee' element={<EmployeePage />}/>

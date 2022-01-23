@@ -100,23 +100,28 @@ export default function ReimbursementForm(props:{employeeId:string}) {
     }
     
     return (<>
-    <table>
+    <table className="fs-5">
         <tbody>
             <tr>
-                <td><label htmlFor="type">Type</label></td>
-                <td><input id="type" type="text" ref={typeInput} /></td>
+                <td className="text-end"><label data-bs-placement="right" data-bs-toggle="tooltip" title="1-2 words telling what the reimbursement is for such as Groceries or Office Supplies" className="form-label" htmlFor="type"><b>Type</b></label></td>
+                <td><input className="form-control" id="type" type="text" ref={typeInput} /></td>
             </tr>
             <tr>
-                <td><label htmlFor="desc">Description</label></td>
-                <td><input id="desc" type="text" ref={descInput}/></td>
+                <td className="text-end"><label data-bs-placement="right" data-bs-toggle="tooltip" title="Longer more detailed description such as 'Reimbursement for driving mileage see attached driving logs and receipts.'" className="form-label" htmlFor="desc"><b>Description</b></label></td>
+                <td><input className="form-control" id="desc" type="text" ref={descInput}/></td>
             </tr>
             <tr>
-                <td><label htmlFor="amount">Amount</label></td>
-                <td><input id="amount" type="number" step={0.01} min={0.01} defaultValue={10} ref={amountInput}/></td>
+                <td className="text-end"><label data-bs-placement="right" data-bs-toggle="tooltip" title="The amount of money to be reimbursed. All numbers past two decimal places will be ignored." className="form-label" htmlFor="amount"><b>Amount</b></label></td>
+                <td>
+                    <div className="input-group">
+                        <span className="input-group-text">$</span>
+                        <input className="form-control" id="amount" type="number" step={0.01} min={0.01} defaultValue={10} ref={amountInput}/>
+                    </div>
+                    </td>
             </tr>
             <tr>
-                <td><label htmlFor="date">Date</label></td>
-                <td><input type={"date"} id="date" ref={dateInput} /></td>
+                <td className="text-end"><label data-bs-placement="right" data-bs-toggle="tooltip" title="Select the date of the reimbursement. If multiple dates then select the last one and indicate in the description" className="form-label" htmlFor="date"><b>Date</b></label></td>
+                <td><input className="form-control" type={"date"} id="date" ref={dateInput} /></td>
             </tr>
         </tbody>
     </table>

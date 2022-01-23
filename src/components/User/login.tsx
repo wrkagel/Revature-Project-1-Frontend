@@ -77,10 +77,10 @@ export default function Login() {
 
 
 
-    return (<div className="flex-column d-flex p-3">
-        <input className="d-inline-flex p-3" ref={nameInput} id="nameInput" placeholder="username" type="text" /><br />
-        <input className="d-inline-flex p-3" ref={passInput} id="passInput" placeholder="password" type="password" /><br />
-        <label className="text-center btn btn-primary" htmlFor="Login">Login</label>
+    return (<div className="form-group flex-column d-flex">
+        <input className="form-control form-control-lg d-inline-flex my-2 w-25 mx-auto" ref={nameInput} id="nameInput" placeholder="username" type="text"/><br />
+        <input className="form-control form-control-lg d-inline-flex mb-2 w-25 mx-auto" ref={passInput} id="passInput" placeholder="password" type="password" /><br />
+        <label className="text-center btn btn-lg btn-primary w-25 mx-auto" tabIndex={0} htmlFor="Login">Login</label>
         <button className="d-none" onClick={() => setIsClicked({...isClicked})} id="Login">Login</button>
     </div>)
 }
