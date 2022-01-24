@@ -19,8 +19,8 @@ function App() {
     {user.isManager && <ManagerNavBar />}
     {user.isAuthenticated ? 
       <>
-      <div>
-        <h2>Welcome {user.name}</h2>
+      <div className="jumbotron">
+        <h2 className="display-4">Welcome {user.name}</h2>
       </div>
         <Routes>
           <Route path='/employee' element={<EmployeePage />}/>

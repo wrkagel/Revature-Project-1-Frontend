@@ -41,8 +41,8 @@ export default function ReimbursementRow(props:ReimbursementItem) {
         switch(props.status) {
             case ReimbursementStatus.pending: {
                 return (<>
-                    <button className="btn btn-outline-success" onClick={() => setUpdate(ReimbursementStatus.approved)}>Approve</button>
-                    <button className="btn btn-outline-danger" onClick={() => setUpdate(ReimbursementStatus.denied)}>Deny</button>
+                    <button className="btn btn-outline-success col" onClick={() => setUpdate(ReimbursementStatus.approved)}>Approve</button>
+                    <button className="btn btn-outline-danger col" onClick={() => setUpdate(ReimbursementStatus.denied)}>Deny</button>
                 </>)
             }
             case ReimbursementStatus.approved:
@@ -69,7 +69,12 @@ export default function ReimbursementRow(props:ReimbursementItem) {
             <td>{id}</td>{
             (isManager && userId !== employeeId) && 
             (<><td>{employeeId}</td>
-                <td>{<ManagerButtons/>}
+                <td className="d-flex">
+                    <div className="container">
+                        <div className="row">
+                            {<ManagerButtons/>}
+                        </div>
+                    </div>
             </td></>)}
             <td>
                 <FileButtons id={id}/>

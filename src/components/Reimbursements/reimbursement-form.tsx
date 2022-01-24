@@ -95,7 +95,7 @@ export default function ReimbursementForm(props:{employeeId:string}) {
             descInput.current.value = "";
         }
         if(amountInput.current) {
-            amountInput.current.value = "0.01";
+            amountInput.current.value = "10";
         }
     }
     
