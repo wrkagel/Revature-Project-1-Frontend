@@ -46,3 +46,6 @@ const pageSlice = createSlice({
 export const pageStore = configureStore({reducer: pageSlice.reducer});
 
 export const actions = pageSlice.actions;
+
+//export const backendAddress = 'http://localhost:5000';
+export const backendAddress = 'https://wk-reimbursements-backend.azurewebsites.net'

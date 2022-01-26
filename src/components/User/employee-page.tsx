@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { backendAddress } from "../..";
+import { backendAddress } from "../../store";
 import ReimbursementItem from "../../entities/reimbursement-item";
 import { actions, PageState } from "../../store";
 import ReimbursementTable from "../Reimbursements/reimbursement-table";

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
-import { backendAddress } from "../..";
+import { backendAddress } from "../../store";
 import Statistics from "../../entities/stats-interface";
 import { PageState } from "../../store";
 

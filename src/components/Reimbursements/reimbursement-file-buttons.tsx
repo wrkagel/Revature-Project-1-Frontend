@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { backendAddress } from "../..";
+import { backendAddress } from "../../store";
 
 
 export default function FileButtons(props:{id:string}) {
