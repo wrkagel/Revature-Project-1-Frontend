@@ -1,13 +1,13 @@
 import { rest } from 'msw';
 import { setupServer } from 'msw/node';
-import { fireEvent, render, screen, waitFor } from '@Testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import Login from '../components/User/login';
 import { Provider } from 'react-redux';
 import { backendAddress, pageStore } from '../store';
 import '../style/bootstrap.min.css'
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { FC } from 'react';
-import userEvent from '@Testing-library/user-event';
+import userEvent from '@testing-library/user-event';
 import Employee from '../entities/employee';
 
 const server = setupServer(
