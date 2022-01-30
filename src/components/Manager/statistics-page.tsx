@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
 import { useSelector } from "react-redux";
-import { backendAddress } from "../../store";
+import { backendAddress, PageState } from "../../store";
 import Statistics from "../../entities/stats-interface";
-import { PageState } from "../../store";
 
 
 export default function StatisticsPage() {

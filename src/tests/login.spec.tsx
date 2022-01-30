@@ -18,7 +18,7 @@ const server = setupServer(
     if (index === -1) {
       return res(ctx.status(404, 'No such user found'));
     };
-    const employee: Employee = { id: "test", fname: "Harvey", lname: "Harvey", manages: index ? [] : undefined };
+    const employee: Employee = { id: "test", fname: "Harvey", lname: "Harvey", manages: index ? [] : undefined }
     return res(ctx.json(employee));
   })
 );

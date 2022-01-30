@@ -4,8 +4,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import User from "../../entities/user";
 import Employee from "../../entities/employee";
-import { actions } from "../../store";
-import { backendAddress } from "../../store";
+import { backendAddress, actions } from "../../store";
 
 
 export default function Login() {
