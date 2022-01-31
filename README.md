@@ -1,3 +1,8 @@
+# Expense Reimbursement System Browser Frontend
+
+## ***\*This project is for learning purposes only and does not include security implementations or all features necessary for a true expense-reimbursement system backend***
+- This is a browser front-end for an expense reimbursement system.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
 
 ## Available Scripts
